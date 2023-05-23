@@ -1,0 +1,574 @@
+wireplumber (0.4.14-1~ubuntu22.10) kinetic; urgency=medium
+
+  Debian Package - 
+
+    - add bluez_update_configuration_settings.patch
+
+  wireplumber - 
+
+    Changes:
+    
+      - For a complete changelog
+        see : https://gitlab.freedesktop.org/pipewire/pipewire/-/releases
+  .
+  .
+
+
+ -- Sourav Das <souravdas142@gmail.com>  Sun, 26 Mar 2023 11:24:57 +0530
+
+wireplumber (0.4.13.r3.g6df6e1f-1~ubuntu20.04) focal; urgency=medium
+
+  Debian Package - 
+
+    - Add new wireplumber-locales package
+
+  wireplumber - 
+
+    Changes:
+    
+      - For a complete changelog
+        see : https://gitlab.freedesktop.org/pipewire/pipewire/-/releases
+  .
+  .
+
+
+ -- Sourav Das <souravdas142@gmail.com>  Sat, 24 Dec 2022 23:37:57 +0530
+
+wireplumber (0.4.11.r31.g8fa1693-1~ubuntu20.04) focal; urgency=medium
+
+  Debian Package - 
+
+    - Add new wireplumber-locales package
+
+  wireplumber - 
+
+    Changes:
+    
+      - For a complete changelog
+        see : https://gitlab.freedesktop.org/pipewire/pipewire/-/releases
+  .
+  .
+
+
+
+
+ -- Sourav Das <souravdas142@gmail.com>  Sat, 01 Oct 2022 06:47:54 +0530
+
+wireplumber (0.4.11-1~ubuntu21.10) impish; urgency=medium
+
+  Debian Package - 
+
+    - Add new wireplumber-locales package
+
+  wireplumber - 
+
+    Changes:
+    
+      - The libcamera monitor is now enabled by default, so if the libcamera source
+        is enabled in PipeWire, cameras discovered with the libcamera API will be
+        available out of the box. This is safe to use alongside V4L2, as long as
+        the user does not try to use the same camera over different APIs at the same
+        time
+      - Libcamera and V4L2 nodes now get assigned a ``priority.session`` number;
+        V4L2 nodes get a higher priority by default, so the default camera is going
+        to be /dev/video0 over V4L2, unless changed with ``wpctl``
+      - Libcamera nodes now get a user-friendly description based on their location
+        (ex. built-in front camera). Additionally, V4L2 nodes now have a "(V4L2)"
+        string appended to their description in order to be distinguished from
+        the libcamera ones
+      - 50-alsa-config.lua now has a section where you can set properties that
+        will only be applied if WirePlumber is running in a virtual machine. By
+        default it now sets ``api.alsa.period-size = 256`` and
+        ``api.alsa.headroom = 8192`` (#162, #134)
+    
+    Fixes:
+    
+      - The "enabled" properties in the config files are now "true" by default
+        when they are not defined. This fixes backwards compatibility with older
+        configuration files (#254)
+      - Fixed device name deduplication in the alsa monitor, when device reservation
+        is enabled (#241)
+      - Reverted a previous fix that makes it possible again to get a glitch when
+        changing default nodes while also changing the profile (GNOME Settings).
+        The fix was causing other problems and the issue will be addressed
+        differently in the future (#279)
+      - Fixed an issue that would prevent applications from being moved to a
+        recently plugged USB headset (#293)
+      - Fixed an issue where wireplumber would automatically link control ports,
+        if they are enabled, to audio ports, effectively breaking audio (#294)
+      - The policy now always considers the profile of a device that was previously
+        selected by the user, if it is available, when deciding which profile to
+        activate (#179). This may break certain use cases (see !360)
+      - A few documentation fixes
+    
+    Tools:
+    
+      - wpctl now has a ``get-volume`` command for easier scripting of volume controls
+      - wpctl now supports relative steps and percentage-based steps in ``set-volume``
+      - wpctl now also prints link states
+      - wpctl can now ``inspect`` metadata objects without showing critical warnings
+    
+    Library:
+    
+      - A new WpDBus API was added to maintain a single D-Bus connection among
+        modules that need one
+      - WpCore now has a method to get the virtual machine type, if WirePlumber
+        is running in a virtual machine
+      - WpSpaDevice now has a ``wp_spa_device_new_managed_object_iterator()`` method
+      - WpSpaJson now has a ``wp_spa_json_to_string()`` method that returns a newly
+        allocated string with the correct size of the string token
+      - WpLink now has a ``WP_LINK_FEATURE_ESTABLISHED`` that allows the caller to
+        wait until the link is in the PAUSED or ACTIVE state. This transparently
+        now enables watching links for negotiation or allocation errors and failing
+        gracefully instead of keeping dead link objects around (#294)
+    
+    Misc:
+    
+      - The Lua subproject was bumped to version 5.4.4
+
+   
+   
+ 
+ -- Sourav Das <souravdas142@gmail.com>  Tue, 05 Jul 2022 21:07:51 +0530
+
+wireplumber (0.4.10.r48.g37bd392-1~ubuntu20.04) focal; urgency=medium
+
+  Debian Package - 
+
+    - Add new wireplumber-locales package
+
+  wireplumber - 
+
+    Changes:
+
+      - Added i18n support to be able to translate some user-visible strings
+      - wpctl now supports using ''@DEFAULT_{AUDIO_,VIDEO_,}{SINK,SOURCE}@'' as ID,
+        almost like pactl. Additionally, it supports a ''--pid'' flag for changing
+        volume and mute state by specifying a process ID, applying the state to all
+        nodes of a specific client process
+      - The Lua engine now supports loading Lua libraries. These can be placed
+        either in the standard Lua libraries path or in the "lib" subdirectory
+        of WirePlumber's "scripts" directory and can be loaded with ''require()''
+      - The Lua engine's sandbox has been relaxed to allow more functionality
+        in scripts (the debug & coroutine libraries and some other previously
+        disabled functions)
+      - Lua scripts are now wrapped in special WpPlugin objects, allowing them to
+        load asynchronously and declare when they have finished their loading
+      - Added a new script that provides the same functionality as
+        module-fallback-sink from PipeWire, but also takes endpoints into account
+        and can be customized more easily. Disabled by default for now to avoid
+        conflicts
+    
+    Policy:
+    
+      - Added an optional experimental feature that allows filter-like streams
+        (like echo-cancel or filter-node) to match the channel layout of the
+        device they connect to, on both sides of the filter; that means that if,
+        for instance, a sink has 6 channels and the echo-cancel's source stream
+        is linked to that sink, then the virtual sink presented by echo-cancel
+        will also be configured to the same 6 channels layout. This feature needs
+        to be explicitly enabled in the configuration ("filter.forward-format")
+      - filter-like streams (filter-chain and such) no longer follow the default
+        sink when it changes, like in PulseAudio
+    
+    Fixes:
+    
+      - The suspend-node script now also suspends nodes that go into the "error"
+        state, allowing them to recover from errors without having to restart
+        WirePlumber
+      - Fixed a crash in mixer-api when setting volume with channelVolumes (#250)
+      - logind module now watches only for user state changes, avoiding errors when
+        machined is not running
+    
+    Misc:
+    
+      - The configuration files now have comments mentioning which options need to
+        be disabled in order to run WirePlumber without D-Bus
+      - The configuration files now have properties to enable/disable the monitors
+        and other sections, so that it is possible to disable them by dropping in
+        a file that just sets the relevant property to false
+   
+   
+ 
+ -- Sourav Das <souravdas142@gmail.com>  Thu, 30 Jun 2022 18:07:40 +0530
+
+wireplumber (0.4.9.r8.g812fc9b-1~ubuntu20.04) focal; urgency=medium
+
+  Debian Package - 
+
+    - Nothing
+
+  wireplumber - 
+
+    Fixes:
+
+      - restore-stream no longer crashes if properties for it are not present
+        in the config (#190)
+      - spa-json no longer crashes on non-x86 architectures
+      - Fixed a potential crash in the bluetooth auto-switch module (#193)
+      - Fixed a race condition that would cause Zoom desktop audio sharing to fail
+        (#197)
+      - Surround sound in some games is now exposed properly (pipewire#876)
+      - Fixed a race condition that would cause the default source & sink to not
+        be set at startup
+      - policy-node now supports the 'target.object' key on streams and metadata
+      - Multiple fixes in policy-node that make the logic in some cases behave
+        more like PulseAudio (regarding nodes with the dont-reconnect property
+        and regarding following the default source/sink)
+      - Fixed a bug with parsing unquoted strings in spa-json
+
+    Misc:
+
+      - The policy now supports configuring "persistent" device profiles. If a
+        device is *manually* set to one of these profiles, then it will not be
+        auto-switched to another profile automatically under any circumstances
+        (#138, #204)
+      - The device-activation module was re-written in lua
+      - Brave, Edge, Vivaldi and Telegram were added in the bluetooth auto-switch
+        applications list
+      - ALSA nodes now use the PCM name to populate node.nick, which is useful
+        at least on HDA cards using UCM, where all outputs (analog, hdmi, etc)
+        are exposesd as nodes on a single profile
+      - An icon name is now set on the properties of bluetooth devices
+
+  
+
+ -- Sourav Das <souravdas142@gmail.com>  Tue, 29 Mar 2022 18:03:38 +0530
+
+wireplumber (0.4.8.r20.gb95da33-1~ubuntu20.04) focal; urgency=medium
+
+  Debian Package - 
+
+    - Nothing
+
+  wireplumber - 
+
+    - Added bluetooth profile auto-switching support. Bluetooth headsets will now
+      automatically switch to the HSP/HFP profile when making a call and go back
+      to the A2DP profile after the call ends (#90)
+  
+    - Added an option (enabled by default) to auto-switch to echo-cancel virtual
+      device nodes when the echo-cancel module is loaded in pipewire-pulse, if
+      there is no other configured default node
+  
+    Fixes:
+    
+      - Fixed a regression that prevented nodes from being selected as default when
+        using the pro-audio profile (#163)
+      - Fixed a regression that caused encoded audio streams to stall (#178)
+      - Fixed restoring bluetooth device profiles
+    
+    Library:
+    
+      - A new WpSpaJson API was added as a front-end to spa-json. This is also
+        exposed to Lua, so that Lua scripts can natively parse and write data in
+        the spa-json format
+    
+    Misc:
+    
+      - wpctl can now list the configured default sources and sinks and has a new
+        command that allows clearing those configured defaults, so that wireplumber
+        goes back to choosing the default nodes based on node priorities
+      - The restore-stream script now has its own configuration file in
+        main.lua.d/40-stream-defaults.lua and has independent options for
+        restoring properties and target nodes
+      - The restore-stream script now supports rule-based configuration to disable
+        restoring volume properties and/or target nodes for specific streams,
+        useful for applications that misbehave when we restore those (see #169)
+      - policy-endpoint now assigns the "Default" role to any stream that does not
+        have a role, so that it can be linked to a pre-configured endpoint
+      - The route-settings-api module was dropped in favor of dealing with json
+        natively in Lua, now that the API exists
+
+
+ -- Sourav Das <souravdas142@gmail.com>  Mon, 07 Mar 2022 00:51:35 +0530
+
+wireplumber (0.4.7.r41.g13034fa-1~ubuntu20.04) focal; urgency=medium
+
+  Debian Package - 
+
+    - Disable '-Dsystemd-system-service' to match upstream
+    - Update 'libwireplumber-0.4-0.symbols' file
+    - Update 'wireplumber.install' file
+    - 'debian/patches/revert_devenv.patch' removed
+
+  wireplumber - 
+    
+    0.4.6
+
+      -
+      - Fixed a lot of race condition bugs that would cause strange crashes or
+        many log messages being printed when streaming clients would connect and
+        disconnect very fast (#128, #78, ...)
+      - Improved the logic for selecting a default target device (#74)
+      - Fixed switching to headphones when the wired headphones are plugged in (#98)
+      - Fixed an issue where ``udevadm trigger`` would break wireplumber (#93)
+      - Fixed an issue where switching profiles of a device could kill client nodes
+      - Fixed briefly switching output to a secondary device when switching device
+        profiles (#85)
+      - Fixed ``wpctl status`` showing default device selections when dealing with
+        module-loopback virtual sinks and sources (#130)
+      - WirePlumber now ignores hidden files from the config directory (#104)
+      - Fixed an interoperability issue with jackdbus (pipewire#1846)
+      - Fixed an issue where pulseaudio tcp clients would not have permissions to
+        connect to PipeWire (pipewire#1863)
+      - Fixed a crash in the journald logger with NULL debug messages (#124)
+      - Enabled real-time priority for the bluetooth nodes to run in RT (#132)
+      - Made the default stream volume configurable
+      - Scripts are now also looked up in $XDG_CONFIG_HOME/wireplumber/scripts
+      - Updated documentation on configuring WirePlumber and fixed some more
+        documentation issues (#68)
+      - Added support for using strings as log level selectors in WIREPLUMBER_DEBUG
+      -
+  
+   0.4.7
+
+     - 
+     - Fixed a regression in 0.4.6 that caused the selection of the default audio
+       sources and sinks to be delayed until some event, which effectively caused
+       losing audio output in many circumstances (#148, #150, #151, #153)
+     - Fixed a regression in 0.4.6 that caused the echo-cancellation pipewire
+       module (and possibly others) to not work
+     - A default sink or source is now not selected if there is no available route
+       for it (#145)
+     - Fixed an issue where some clients would wait for a bit while seeking (#146)
+     - Fixed audio capture in the endpoints-based policy
+     - Fixed an issue that would cause certain lua scripts to error out with older
+       configuration files (#158)
+        
+    
+ -- Sourav Das <souravdas142@gmail.com>  Fri, 04 Feb 2022 09:22:10 +0530
+
+wireplumber (0.4.7.r13.g411378d-1~ubuntu21.04) hirsute; urgency=medium
+
+  Debian Package - 
+
+    - Nothing
+
+  wireplumber - 
+    
+    0.4.6
+
+      -
+      - Fixed a lot of race condition bugs that would cause strange crashes or
+        many log messages being printed when streaming clients would connect and
+        disconnect very fast (#128, #78, ...)
+      - Improved the logic for selecting a default target device (#74)
+      - Fixed switching to headphones when the wired headphones are plugged in (#98)
+      - Fixed an issue where ``udevadm trigger`` would break wireplumber (#93)
+      - Fixed an issue where switching profiles of a device could kill client nodes
+      - Fixed briefly switching output to a secondary device when switching device
+        profiles (#85)
+      - Fixed ``wpctl status`` showing default device selections when dealing with
+        module-loopback virtual sinks and sources (#130)
+      - WirePlumber now ignores hidden files from the config directory (#104)
+      - Fixed an interoperability issue with jackdbus (pipewire#1846)
+      - Fixed an issue where pulseaudio tcp clients would not have permissions to
+        connect to PipeWire (pipewire#1863)
+      - Fixed a crash in the journald logger with NULL debug messages (#124)
+      - Enabled real-time priority for the bluetooth nodes to run in RT (#132)
+      - Made the default stream volume configurable
+      - Scripts are now also looked up in $XDG_CONFIG_HOME/wireplumber/scripts
+      - Updated documentation on configuring WirePlumber and fixed some more
+        documentation issues (#68)
+      - Added support for using strings as log level selectors in WIREPLUMBER_DEBUG
+      -
+  
+   0.4.7
+
+     - 
+     - Fixed a regression in 0.4.6 that caused the selection of the default audio
+       sources and sinks to be delayed until some event, which effectively caused
+       losing audio output in many circumstances (#148, #150, #151, #153)
+     - Fixed a regression in 0.4.6 that caused the echo-cancellation pipewire
+       module (and possibly others) to not work
+     - A default sink or source is now not selected if there is no available route
+       for it (#145)
+     - Fixed an issue where some clients would wait for a bit while seeking (#146)
+     - Fixed audio capture in the endpoints-based policy
+     - Fixed an issue that would cause certain lua scripts to error out with older
+       configuration files (#158)
+        
+    
+ -- Sourav Das <souravdas142@gmail.com>  Wed, 19 Jan 2022 22:43:36 +0530
+
+wireplumber (0.4.5.r46.ge04acbd-1~ubuntu20.04) focal; urgency=medium
+
+  Debian Package - 
+
+    - Nothing
+
+  wireplumber - 
+    
+  - Fixed a crash that could happen after a node linking error (#76)
+  - Fixed a bug that would cause capture streams to link to monitor ports
+    of loopback nodes instead of linking to their capture ports
+  - Fixed a needless wait that would happen on applications using the pipewire
+    ALSA plugin (#92)
+  - Fixed an issue that would cause endless rescan loops in policy-node and
+    could potentially also cause other strange behaviors in case pavucontrol
+    or another monitoring utility was open while the policy was rescanning (#77)
+  - Fixed the endpoints-based policy that broke in recent versions and improved
+    its codebase to share more code and be more in-line with policy-node
+  - The semicolon character is now escaped properly in state files (#82)
+  - When a player requests encoded audio passthrough, the policy now prefers
+    linking to a device that supports that instead of trying to link to the
+    default device and potentially failing (#75)
+  - Miscellaneous robustness fixes in policy-node
+  - For more, See : https://gitlab.freedesktop.org/pipewire/wireplumber/-/releases
+
+  - docs: remove protected
+  - annotations from functions to show them in the docs
+  - policy: use a scheduleRescan function to avoid unneeded rescans
+  - create-item: don't register item if failed to activate
+  - si-std-link: handle node destroy events while linking is in progress
+  - registry: ensure in-progress activations are aborted when a global is removed
+  - pipewire-obj-mixin: guard against proxy being destroyed while syncing to core
+  - core: add wp_core_sync_closure()
+  - object-manager: doc: add note about the installed signal
+  - log: guard against NULL messages
+  - meson.build: add devenv
+  - m-device-activation: reevaluate current profile if params changed
+  - m-default-profile: only store the default profile if the save flag is present
+  - m-mixer-api: unset iterator value before breaking or returning from loop
+  - pipewire-object-mixin: enable feature info when event info is fully processed
+  - metadata: unset iterator value before breaking or returning from loop
+
+  Troubleshooting -
+
+    - Have any package regarding issue? report on github :
+      https://github.com/pipewire-debian/pipewire-debian/issues/new/choose
+
+     
+ -- Sourav Das <souravdas142@gmail.com>  Thu, 16 Dec 2021 20:51:11 +0530
+
+wireplumber (0.4.4.r14.g51713d3-3~ubuntu20.04) focal; urgency=medium
+
+  Debian Package - 
+
+    - Nothing
+
+  wireplumber - 
+    
+    - Implemented linking nodes in passthrough mode, which enables encoded
+      iec958 / dsd audio passthrough
+    - Streams are now sent an error if it was not possible to link them to
+      a target (#63)
+    - When linking nodes where at least one of them has an unpositioned channel
+      layout, the other one is not reconfigured to match the channel layout;
+      it is instead linked with a best effort port matching logic
+    - Output route switches automatically to the latest one that has become
+      available (#69)
+    - Policy now respects the 'node.exclusive' and 'node.passive' properties
+    - Many other minor policy fixes for a smoother desktop usage experience
+    - For more, See : https://gitlab.freedesktop.org/pipewire/wireplumber/-/releases
+
+  Troubleshooting -
+
+    - Have any package regarding issue? report on github :
+      https://github.com/pipewire-debian/pipewire-debian/issues/new/choose
+
+     
+ -- Sourav Das <souravdas142@gmail.com>  Sat, 29 Oct 2021 20:51:11 +0530
+
+wireplumber (0.4.2-1~ubuntu20.04) focal; urgency=medium
+
+  Debian Package - 
+
+    - Nothing
+
+  wireplumber - 
+    
+     
+       - Requires PipeWire 0.3.32 or later at runtime
+       - Configuration files are now installed in $PREFIX/share/wireplumber, along
+         with scripts, following the paradigm of PipeWire
+       - State files are now stored in $XDG_STATE_HOME instead of $XDG_CONFIG_HOME
+       - Added new ``file-monitor-api`` module, which allows Lua scripts to watch
+         the filesystem for changes, using inotify
+       - Added monitor for MIDI devices
+       - Added a ``system-lua-version`` meson option that allows distributors to
+         choose which Lua version to build against (``auto``, ``5.3`` or ``5.4``)
+       - wpipc has been removed and split out to a separate project,
+         https://git.automotivelinux.org/src/pipewire-ic-ipc/
+       - For more, See : https://gitlab.freedesktop.org/pipewire/wireplumber/-/releases
+
+  Troubleshooting -
+
+  - Have any package regarding issue? report on github :
+    https://github.com/pipewire-debian/pipewire-debian/issues/new/choose
+
+     
+ -- Sourav Das <souravdas142@gmail.com>  Fri, 20 Aug 2021 20:51:11 +0530
+
+wireplumber (0.4.1.1-1~ubuntu20.04) focal; urgency=medium
+
+  Debian Package - 
+
+    - Initial Release
+
+  wireplumber - 
+    
+    Fixes:
+
+      - Fixed filtering of pw_metadata objects, which broke with PipeWire 0.3.31
+      - Fixed a potential livelock condition in si-audio-adapter/endpoint where
+        the code would wait forever for a node's ports to appear in the graph
+      - Fixed granting access to camera device nodes in flatpak clients connecting
+        through the camera portal
+      - Fixed a lot of issues found by the coverity static analyzer
+      - Fixed certain race conditions in the wpipc library
+      - Fixed compilation with GCC older than v8.1
+
+    Scripts:
+
+      - Added a policy script that matches nodes to specific devices based on the
+        "media.role" of the nodes and the "device.intended-roles" of the devices
+
+    Build system:
+
+      - Bumped GLib requirement to 2.62, as the code was already using 2.62 API
+      - Added support for building WirePlumber as a PipeWire subproject
+      - Doxygen version requirement has been relaxed to accept v1.8
+      - The CI now also verifies that the build works on Ubuntu 20.04 LTS
+        and tries multiple builds with different build options
+
+  Troubleshooting -
+
+  - Have any package regarding issue? report on github :
+    https://github.com/pipewire-debian/pipewire-debian/issues/new/choose
+
+  
+
+ -- Sourav Das <souravdas142@gmail.com>  Tue, 29 Jun 2021 18:51:11 +0530
+
+wireplumber (0.4.0-1) experimental; urgency=medium
+
+  * Team upload.
+
+  [ Frederic Danis ]
+  * New upstream version 0.3.96
+  * debian: Stop disabling doc and force gobject-introspection
+  * d/patches: Remove merged patches
+  * d/control: Add recommends of pipewire-pulse
+  * debian: Update libwireplumber-0.4 symbols
+  * d/patches: meson: force the gir target to depend on wp-gtkdoc.h
+
+  [ Dylan Aïssi ]
+  * New upstream version 0.4.0
+  * Remove d/p/meson-force-the-gir-target-to-depend-on-wp-gtkdoc.h.patch,
+      applied upstream.
+  * Update symbols file
+  * Add a versioned dependency for gir1.2-wp-0.4
+
+ -- Dylan Aïssi <daissi@debian.org>  Wed, 16 Jun 2021 12:09:12 +0200
+
+wireplumber (0.3.95-1) experimental; urgency=medium
+
+  [ Frederic Danis ]
+  * Initial release (Closes: #988143)
+
+  [ Sjoerd Simons ]
+  * Upload to experimental
+
+ -- Sjoerd Simons <sjoerd@debian.org>  Tue, 18 May 2021 22:02:27 +0200
