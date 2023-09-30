@@ -36,7 +36,6 @@ Build-Depends: cmake,
                pipewire-doc,
                pipewire-pulse,
                pipewire-bin (>= 0.3.45),
-               pipewire-locales,
                pipewire-tests,
 Standards-Version: 4.5.1
 Homepage: https://gitlab.freedesktop.org/pipewire/wireplumber
