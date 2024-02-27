@@ -11,6 +11,7 @@ libwireplumber-0.4.so.0 libwireplumber-0.4-0 #MINVER#
  wp_core_connect@Base 0.3.95
  wp_core_disconnect@Base 0.3.95
  wp_core_get_g_main_context@Base 0.3.95
+ wp_core_get_own_bound_id@Base 0.4.16
  wp_core_get_properties@Base 0.3.95
  wp_core_get_pw_context@Base 0.3.95
  wp_core_get_pw_core@Base 0.3.95
@@ -21,7 +22,7 @@ libwireplumber-0.4.so.0 libwireplumber-0.4-0 #MINVER#
  wp_core_get_remote_user_name@Base 0.3.95
  wp_core_get_remote_version@Base 0.3.95
  wp_core_get_type@Base 0.3.95
- wp_core_get_vm_type@Base 0.4.10
+ wp_core_get_vm_type@Base 0.4.11
  wp_core_idle_add@Base 0.3.95
  wp_core_idle_add_closure@Base 0.3.95
  wp_core_install_object_manager@Base 0.3.95
@@ -29,18 +30,18 @@ libwireplumber-0.4.so.0 libwireplumber-0.4-0 #MINVER#
  wp_core_load_component@Base 0.3.95
  wp_core_new@Base 0.3.95
  wp_core_sync@Base 0.3.95
- wp_core_sync_closure@Base 0.4.7
+ wp_core_sync_closure@Base 0.4.6
  wp_core_sync_finish@Base 0.3.95
  wp_core_timeout_add@Base 0.3.95
  wp_core_timeout_add_closure@Base 0.3.95
  wp_core_update_properties@Base 0.3.95
- wp_dbus_features_get_type@Base 0.4.10
- wp_dbus_get_bus_type@Base 0.4.10
- wp_dbus_get_connection@Base 0.4.10
- wp_dbus_get_instance@Base 0.4.10
- wp_dbus_get_state@Base 0.4.10
- wp_dbus_get_type@Base 0.4.10
- wp_dbus_state_get_type@Base 0.4.10
+ wp_dbus_features_get_type@Base 0.4.11
+ wp_dbus_get_bus_type@Base 0.4.11
+ wp_dbus_get_connection@Base 0.4.11
+ wp_dbus_get_instance@Base 0.4.11
+ wp_dbus_get_state@Base 0.4.11
+ wp_dbus_get_type@Base 0.4.11
+ wp_dbus_state_get_type@Base 0.4.11
  wp_device_get_type@Base 0.3.95
  wp_device_new_from_factory@Base 0.3.95
  wp_direction_get_type@Base 0.3.95
@@ -55,8 +56,8 @@ libwireplumber-0.4.so.0 libwireplumber-0.4-0 #MINVER#
  wp_find_file@Base 0.4.2
  wp_get_config_dir@Base 0.3.95
  wp_get_data_dir@Base 0.3.95
- wp_get_library_api_version@Base 0.4.11
- wp_get_library_version@Base 0.4.11
+ wp_get_library_api_version@Base 0.4.12
+ wp_get_library_version@Base 0.4.12
  wp_get_module_dir@Base 0.3.95
  wp_global_proxy_bind@Base 0.3.95
  wp_global_proxy_get_global_properties@Base 0.3.95
@@ -70,6 +71,7 @@ libwireplumber-0.4.so.0 libwireplumber-0.4-0 #MINVER#
  wp_impl_metadata_new_full@Base 0.4.3
  wp_impl_module_get_type@Base 0.4.2
  wp_impl_module_load@Base 0.4.2
+ wp_impl_module_load_file@Base 0.4.15
  wp_impl_node_get_type@Base 0.3.95
  wp_impl_node_new_from_pw_factory@Base 0.3.95
  wp_impl_node_new_wrap@Base 0.3.95
@@ -90,10 +92,10 @@ libwireplumber-0.4.so.0 libwireplumber-0.4-0 #MINVER#
  wp_library_error_enum_get_type@Base 0.3.95
  wp_link_features_get_type@Base 0.4.11
  wp_link_get_linked_object_ids@Base 0.3.95
- wp_link_get_state@Base 0.4.10
+ wp_link_get_state@Base 0.4.11
  wp_link_get_type@Base 0.3.95
  wp_link_new_from_factory@Base 0.3.95
- wp_link_state_get_type@Base 0.4.10
+ wp_link_state_get_type@Base 0.4.11
  wp_log_level_is_enabled@Base 0.3.95
  wp_log_set_level@Base 0.3.95
  wp_log_structured_standard@Base 0.3.95
@@ -121,7 +123,7 @@ libwireplumber-0.4.so.0 libwireplumber-0.4-0 #MINVER#
  wp_node_new_ports_iterator@Base 0.3.95
  wp_node_send_command@Base 0.3.95
  wp_node_state_get_type@Base 0.3.95
- wp_object_abort_activation@Base 0.4.5
+ wp_object_abort_activation@Base 0.4.6
  wp_object_activate@Base 0.3.95
  wp_object_activate_closure@Base 0.3.95
  wp_object_activate_finish@Base 0.3.95
@@ -178,7 +180,7 @@ libwireplumber-0.4.so.0 libwireplumber-0.4-0 #MINVER#
  wp_properties_copy@Base 0.3.95
  wp_properties_ensure_unique_owner@Base 0.3.95
  wp_properties_get@Base 0.3.95
- wp_properties_get_count@Base 0.4.9
+ wp_properties_get_count@Base 0.4.10
  wp_properties_get_type@Base 0.3.95
  wp_properties_item_get_key@Base 0.4.2
  wp_properties_item_get_type@Base 0.4.2
@@ -265,7 +267,7 @@ libwireplumber-0.4.so.0 libwireplumber-0.4-0 #MINVER#
  wp_spa_device_get_properties@Base 0.3.95
  wp_spa_device_get_type@Base 0.3.95
  wp_spa_device_new_from_spa_factory@Base 0.3.95
- wp_spa_device_new_managed_object_iterator@Base 0.4.10
+ wp_spa_device_new_managed_object_iterator@Base 0.4.11
  wp_spa_device_new_wrap@Base 0.3.95
  wp_spa_device_store_managed_object@Base 0.3.95
  wp_spa_dynamic_id_table_register@Base 0.3.95
@@ -287,75 +289,75 @@ libwireplumber-0.4.so.0 libwireplumber-0.4-0 #MINVER#
  wp_spa_id_value_name@Base 0.3.95
  wp_spa_id_value_number@Base 0.3.95
  wp_spa_id_value_short_name@Base 0.3.95
- wp_spa_json_builder_add@Base 0.4.7
- wp_spa_json_builder_add_boolean@Base 0.4.7
- wp_spa_json_builder_add_float@Base 0.4.7
- wp_spa_json_builder_add_int@Base 0.4.7
- wp_spa_json_builder_add_json@Base 0.4.7
- wp_spa_json_builder_add_null@Base 0.4.7
- wp_spa_json_builder_add_property@Base 0.4.7
- wp_spa_json_builder_add_string@Base 0.4.7
- wp_spa_json_builder_add_valist@Base 0.4.7
- wp_spa_json_builder_end@Base 0.4.7
- wp_spa_json_builder_get_type@Base 0.4.7
- wp_spa_json_builder_new_array@Base 0.4.7
- wp_spa_json_builder_new_object@Base 0.4.7
- wp_spa_json_builder_ref@Base 0.4.7
- wp_spa_json_builder_unref@Base 0.4.7
- wp_spa_json_copy@Base 0.4.7
- wp_spa_json_ensure_unique_owner@Base 0.4.7
- wp_spa_json_get_data@Base 0.4.7
- wp_spa_json_get_size@Base 0.4.7
- wp_spa_json_get_spa_json@Base 0.4.7
- wp_spa_json_get_type@Base 0.4.7
- wp_spa_json_is_array@Base 0.4.7
- wp_spa_json_is_boolean@Base 0.4.7
- wp_spa_json_is_float@Base 0.4.7
- wp_spa_json_is_int@Base 0.4.7
- wp_spa_json_is_null@Base 0.4.7
- wp_spa_json_is_object@Base 0.4.7
- wp_spa_json_is_string@Base 0.4.7
- wp_spa_json_is_unique_owner@Base 0.4.7
- wp_spa_json_new_array@Base 0.4.7
- wp_spa_json_new_array_valist@Base 0.4.7
- wp_spa_json_new_boolean@Base 0.4.7
- wp_spa_json_new_float@Base 0.4.7
- wp_spa_json_new_from_string@Base 0.4.7
- wp_spa_json_new_from_stringn@Base 0.4.9
- wp_spa_json_new_int@Base 0.4.7
- wp_spa_json_new_iterator@Base 0.4.7
- wp_spa_json_new_null@Base 0.4.7
- wp_spa_json_new_object@Base 0.4.7
- wp_spa_json_new_object_valist@Base 0.4.7
- wp_spa_json_new_string@Base 0.4.7
- wp_spa_json_new_wrap@Base 0.4.7
- wp_spa_json_object_get@Base 0.4.7
- wp_spa_json_object_get_valist@Base 0.4.7
- wp_spa_json_parse_array@Base 0.4.7
- wp_spa_json_parse_array_valist@Base 0.4.7
- wp_spa_json_parse_boolean@Base 0.4.7
- wp_spa_json_parse_float@Base 0.4.7
- wp_spa_json_parse_int@Base 0.4.7
- wp_spa_json_parse_object@Base 0.4.7
- wp_spa_json_parse_object_valist@Base 0.4.7
- wp_spa_json_parse_string@Base 0.4.7
- wp_spa_json_parser_end@Base 0.4.7
- wp_spa_json_parser_get@Base 0.4.7
- wp_spa_json_parser_get_boolean@Base 0.4.7
- wp_spa_json_parser_get_float@Base 0.4.7
- wp_spa_json_parser_get_int@Base 0.4.7
- wp_spa_json_parser_get_json@Base 0.4.7
- wp_spa_json_parser_get_null@Base 0.4.7
- wp_spa_json_parser_get_string@Base 0.4.7
- wp_spa_json_parser_get_type@Base 0.4.7
- wp_spa_json_parser_get_valist@Base 0.4.7
- wp_spa_json_parser_new_array@Base 0.4.7
- wp_spa_json_parser_new_object@Base 0.4.7
- wp_spa_json_parser_ref@Base 0.4.7
- wp_spa_json_parser_unref@Base 0.4.7
- wp_spa_json_ref@Base 0.4.7.r23
- wp_spa_json_to_string@Base 0.4.10
- wp_spa_json_unref@Base 0.4.7
+ wp_spa_json_builder_add@Base 0.4.8
+ wp_spa_json_builder_add_boolean@Base 0.4.8
+ wp_spa_json_builder_add_float@Base 0.4.8
+ wp_spa_json_builder_add_int@Base 0.4.8
+ wp_spa_json_builder_add_json@Base 0.4.8
+ wp_spa_json_builder_add_null@Base 0.4.8
+ wp_spa_json_builder_add_property@Base 0.4.8
+ wp_spa_json_builder_add_string@Base 0.4.8
+ wp_spa_json_builder_add_valist@Base 0.4.8
+ wp_spa_json_builder_end@Base 0.4.8
+ wp_spa_json_builder_get_type@Base 0.4.8
+ wp_spa_json_builder_new_array@Base 0.4.8
+ wp_spa_json_builder_new_object@Base 0.4.8
+ wp_spa_json_builder_ref@Base 0.4.8
+ wp_spa_json_builder_unref@Base 0.4.8
+ wp_spa_json_copy@Base 0.4.8
+ wp_spa_json_ensure_unique_owner@Base 0.4.8
+ wp_spa_json_get_data@Base 0.4.8
+ wp_spa_json_get_size@Base 0.4.8
+ wp_spa_json_get_spa_json@Base 0.4.8
+ wp_spa_json_get_type@Base 0.4.8
+ wp_spa_json_is_array@Base 0.4.8
+ wp_spa_json_is_boolean@Base 0.4.8
+ wp_spa_json_is_float@Base 0.4.8
+ wp_spa_json_is_int@Base 0.4.8
+ wp_spa_json_is_null@Base 0.4.8
+ wp_spa_json_is_object@Base 0.4.8
+ wp_spa_json_is_string@Base 0.4.8
+ wp_spa_json_is_unique_owner@Base 0.4.8
+ wp_spa_json_new_array@Base 0.4.8
+ wp_spa_json_new_array_valist@Base 0.4.8
+ wp_spa_json_new_boolean@Base 0.4.8
+ wp_spa_json_new_float@Base 0.4.8
+ wp_spa_json_new_from_string@Base 0.4.8
+ wp_spa_json_new_from_stringn@Base 0.4.10
+ wp_spa_json_new_int@Base 0.4.8
+ wp_spa_json_new_iterator@Base 0.4.8
+ wp_spa_json_new_null@Base 0.4.8
+ wp_spa_json_new_object@Base 0.4.8
+ wp_spa_json_new_object_valist@Base 0.4.8
+ wp_spa_json_new_string@Base 0.4.8
+ wp_spa_json_new_wrap@Base 0.4.8
+ wp_spa_json_object_get@Base 0.4.8
+ wp_spa_json_object_get_valist@Base 0.4.8
+ wp_spa_json_parse_array@Base 0.4.8
+ wp_spa_json_parse_array_valist@Base 0.4.8
+ wp_spa_json_parse_boolean@Base 0.4.8
+ wp_spa_json_parse_float@Base 0.4.8
+ wp_spa_json_parse_int@Base 0.4.8
+ wp_spa_json_parse_object@Base 0.4.8
+ wp_spa_json_parse_object_valist@Base 0.4.8
+ wp_spa_json_parse_string@Base 0.4.8
+ wp_spa_json_parser_end@Base 0.4.8
+ wp_spa_json_parser_get@Base 0.4.8
+ wp_spa_json_parser_get_boolean@Base 0.4.8
+ wp_spa_json_parser_get_float@Base 0.4.8
+ wp_spa_json_parser_get_int@Base 0.4.8
+ wp_spa_json_parser_get_json@Base 0.4.8
+ wp_spa_json_parser_get_null@Base 0.4.8
+ wp_spa_json_parser_get_string@Base 0.4.8
+ wp_spa_json_parser_get_type@Base 0.4.8
+ wp_spa_json_parser_get_valist@Base 0.4.8
+ wp_spa_json_parser_new_array@Base 0.4.8
+ wp_spa_json_parser_new_object@Base 0.4.8
+ wp_spa_json_parser_ref@Base 0.4.8
+ wp_spa_json_parser_unref@Base 0.4.8
+ wp_spa_json_ref@Base 0.4.8
+ wp_spa_json_to_string@Base 0.4.11
+ wp_spa_json_unref@Base 0.4.8
  wp_spa_log_get_instance@Base 0.3.95
  wp_spa_pod_builder_add@Base 0.3.95
  wp_spa_pod_builder_add_boolean@Base 0.3.95

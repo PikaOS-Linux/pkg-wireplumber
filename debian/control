@@ -1,43 +1,31 @@
 Source: wireplumber
 Section: libs
 Priority: optional
-Maintainer: Sourav Das <souravdas142@gmail.com>
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 XSBC-Original-Maintainer: Utopia Maintenance Team <pkg-utopia-maintainers@alioth-lists.debian.net>
-Uploaders: Sjoerd Simons <sjoerd@debian.org>
-Build-Depends: cmake,
-               debhelper-compat (= 12),
-               doxygen (>= 1.9.0),
+Uploaders: Sjoerd Simons <sjoerd@debian.org>,
+           Dylan Aïssi <daissi@debian.org>
+Build-Depends: debhelper-compat (= 13),
+               doxygen,
                gobject-introspection,
-               graphviz,
                libgirepository1.0-dev,
-# WirePlumber > 0.4.0 uses libglib2.0-dev (>= 2.62)
-               libglib2.0-dev (>= 2.58),
-               liblua5.3-dev,
-               libpipewire-0.3-dev (>= 0.3.45),
+               libglib2.0-dev (>= 2.62),
+               liblua5.4-dev,
+               libpipewire-0.3-dev (>= 0.3.68),
                libspa-0.2-dev,
-               meson (>= 0.60.0),
-               pkg-config (>= 0.22),
-               python3-lxml,
-               python3-sphinx-rtd-theme,
-               python3-breathe,
-               systemd,
                libsystemd-dev,
-               valgrind,
+               meson (>= 0.59.0),
+               pkg-config,
+               python3-lxml,
+               systemd,
 # Only used for automated tests
                dbus <!nocheck>,
-               gstreamer1.0-pipewire,
-               libpipewire-0.3-0,
-               libpipewire-0.3-modules,
-               libspa-0.2-bluetooth,
-               libspa-0.2-jack,
-               libspa-0.2-modules,
-               pipewire (>= 0.3.45),
-               pipewire-audio-client-libraries,
-               pipewire-doc,
-               pipewire-pulse,
-               pipewire-bin (>= 0.3.45),
-               pipewire-tests,
-Standards-Version: 4.5.1
+               pipewire (>= 0.3.68) <!nocheck>,
+# Only to generate the documentation
+               python3-breathe <!nodoc>,
+               python3-sphinx <!nodoc>,
+               python3-sphinx-rtd-theme <!nodoc>,
+Standards-Version: 4.6.2
 Homepage: https://gitlab.freedesktop.org/pipewire/wireplumber
 Vcs-Browser: https://salsa.debian.org/utopia-team/wireplumber
 Vcs-Git: https://salsa.debian.org/utopia-team/wireplumber.git
@@ -61,10 +49,13 @@ Section: libdevel
 Architecture: linux-any
 Multi-Arch: same
 Depends: ${misc:Depends},
+         ${gir:Depends},
          libglib2.0-dev,
          libpipewire-0.3-dev,
          libwireplumber-0.4-0 (= ${binary:Version}),
          gir1.2-wp-0.4 (= ${binary:Version}),
+Provides: ${gir:Provides}
+Suggests: wireplumber-doc
 Description: Development files for WirePlumber
  WirePlumber is a modular session / policy manager for PipeWire and a
  GObject-based high-level library that wraps PipeWire's API, providing
@@ -77,11 +68,15 @@ Package: wireplumber
 Architecture: linux-any
 Depends: ${shlibs:Depends},
          ${misc:Depends},
+         default-dbus-session-bus | dbus-session-bus,
          libwireplumber-0.4-0 (= ${binary:Version}),
-         pipewire (>= 0.3.45),
-Suggests: wireplumber-locales,
-          libspa-0.2-bluetooth
+         pipewire (>= 0.3.68),
 Recommends: pipewire-pulse
+Suggests: libspa-0.2-bluetooth,
+          libspa-0.2-libcamera,
+          wireplumber-doc
+Conflicts: pipewire-media-session
+Replaces: pipewire-media-session
 Section: video
 Description: modular session / policy manager for PipeWire
  WirePlumber is a modular session / policy manager for PipeWire and a
@@ -97,28 +92,13 @@ Build-Profiles: <!nodoc>
 Architecture: all
 Multi-Arch: foreign
 Depends: ${misc:Depends}
-Description: modular session / policy manager for PipeWire - Documentation
+Description: modular session / policy manager for PipeWire - documentation
  WirePlumber is a modular session / policy manager for PipeWire and a
  GObject-based high-level library that wraps PipeWire's API, providing
  convenience for writing the daemon's modules as well as external tools for
  managing PipeWire.
  .
- This package contains the WirePlumber doc files
-
-Package: wireplumber-locales
-Section: localization
-Build-Profiles: <!nodoc>
-Architecture: all
-Multi-Arch: foreign
-Depends: wireplumber,
-         ${misc:Depends}
-Description: locales for the wireplumber session manager for pipewire - localization
- WirePlumber is a modular session / policy manager for PipeWire and a
- GObject-based high-level library that wraps PipeWire's API, providing
- convenience for writing the daemon's modules as well as external tools for
- managing PipeWire.
- .
- This package contains the locales for WirePlumber.
+ This package contains the WirePlumber documentation.
 
 Package: gir1.2-wp-0.4
 Section: introspection
@@ -126,8 +106,8 @@ Architecture: linux-any
 Multi-Arch: same
 Depends: ${misc:Depends},
          ${gir:Depends},
-         ${shlibs:Depends},
          libwireplumber-0.4-0 (= ${binary:Version}),
+Provides: ${gir:Provides}
 Description: GObject introspection files for WirePlumber
  WirePlumber is a modular session / policy manager for PipeWire and a
  GObject-based high-level library that wraps PipeWire's API, providing
